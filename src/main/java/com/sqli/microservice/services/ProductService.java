@@ -1,20 +1,19 @@
 package com.sqli.microservice.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sqli.microservice.entities.Product;
-import com.sqli.microservice.entities.ProductCategory;
-import com.sqli.microservice.repositories.ProductCategoryRepository;
-import com.sqli.microservice.repositories.ProductRepository;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sqli.microservice.entities.Product;
+import com.sqli.microservice.entities.ProductCategory;
+import com.sqli.microservice.repositories.ProductCategoryRepository;
+import com.sqli.microservice.repositories.ProductRepository;
 
 @Service
 public class ProductService {
@@ -76,6 +75,15 @@ public class ProductService {
 
     public ProductCategory createProductCategoryCategory(ProductCategory productCategory) {
         return productCategoryRepository.save(productCategory);
+    }
+
+    public List<Product> findByCategoryId() {
+        return productRepository.findByCategoryId();        		
+    
+    }
+    
+    public List<Product> findByNameContaining(){
+    	return productRepository.findByNameContaining();
     }
 
     public ProductCategory updateProductCategory(Long id, ProductCategory productCategory) {
